@@ -13,6 +13,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var paddle = SKSpriteNode()
     var brick = SKSpriteNode()
     var loseZone = SKSpriteNode()
+    var playLabel = SKLabelNode()
+    var livesLabel = SKLabelNode()
+    var scoreLabel = SKLabelNode()
+    var playingGame = false
+    var score = 0
+    var lives = 3
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -99,6 +105,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         loseZone.physicsBody = SKPhysicsBody(rectangleOf: loseZone.size)
         loseZone.physicsBody?.isDynamic = false
         addChild(loseZone)
+    }
+    
+    func makeLabels() {
+        playLabel.fontSize = 24
+        playLabel.text = "Tap to Start"
+        playLabel.fontName = "Arial"
+        playLabel.position = CGPoint(x: frame.midX, y: frame.midY - 50)
+        playLabel.name = "playLabel"
+        addChild(playLabel)
+        
+        livesLabel.fontSize = 18
+        livesLabel.fontColor = .black
+        livesLabel.position = CGPoint(x: frame.minX + 50, y: frame.minY + 18)
+        addChild(livesLabel)
+        
+    scoreLabel.fontSize = 18
+        scoreLabel.fontColor = .black
+        scoreLabel.fontName = "Arial"
+        scoreLabel.position = CGPoint(x: frame.maxX - 50, y: frame.minY + 18)
+        addChild(scoreLabel)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
